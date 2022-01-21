@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="../swiper7.0.5/swiper-bundle.min.css">    
+      <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <title>WISEAI-国产系统</title>
+    <style type="text/css">
+        body, html {padding: 0px; margin: 0px; background: url(uos_bg.png) no-repeat; color: white;}
+        @font-face{font-family:zkgdht; src:url(站酷高端黑修订151105.ttf);}
+        .biaoti {text-align: center; margin-top: 100px; font-family: zkgdht; font-size: 60px; }
+       /*img {max-width: 100%; height: auto; display: block; vertical-align: middle;}*/
+       /*.swiper-wrapper{transition: 2s cubic-bezier(0.68, -0.4, 0.27, 1.34) 0.2s;}*/
+       /*.swiper-pagination {color: black;}*/
+    </style>
+  </head>
+  <body>
+    <div class="swiper" id="lb">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="biaoti">国<br>产<br>系<br>统</div>
+          <h3 style="margin-top: 200px; text-align: center; color: black;">中共嘉峪关市委统战部&nbsp;&nbsp;&nbsp;&nbsp;方圆</h3>
+        </div>
+        <div class="swiper-slide">
+          <div style="text-align: center; margin-top: 50px;"><img src="linux.webp" width="60%"></div>
+          <div class="biaoti" style="color: black;">林纳斯<br>本纳第克特<br>托瓦兹</div>
+        </div>
+        <div class="swiper-slide">
+          <div class="biaoti">Linux内核<br><br><br><br>开&nbsp;&nbsp;&nbsp;&nbsp;源</div>
+        </div>
+        <div class="swiper-slide">
+          <div style="text-align: center; margin-top: 100px; transform:rotate(90deg)"><img src="linuxhz.jpeg" width="150%" ></div>
+        </div>
+        <div class="swiper-slide">
+          <div class="biaoti">Linux内核<br><br>真正<br><div style="font-size: 30px">多用户&nbsp;&nbsp;多任务<br><br>支持多线程和多CPU<br><br>十分稳定</div></div>
+        </div>
+        <div class="swiper-slide">
+          <div class="biaoti">86%<br>企业使用Linux操作系统进行云计算、大数据平台的构建</div>
+        </div>
+        <div class="swiper-slide">
+          <div class="biaoti">国产系统<br><br><div style="font-size: 30px">银河麒麟<br>中标麒麟<br>红旗<br>深度（Deepin）<br>UOS等</div></div>
+        </div>
+        <div class="swiper-slide">
+          <div class="biaoti">国产系统<br>算<br>不<br>算<br>国<br>产</div>
+        </div>
+        <div class="swiper-slide">
+          <div class="biaoti" style="font-size: 30px">Windows和UOS的区别<br><br>文件系统<br><br>Windows:<br>FAT，NTFS<br><br>UOS:<br>EXT4，BtrFS，XFS</div>
+        </div>
+        <div class="swiper-slide">
+          <div class="biaoti" style="font-size: 30px">Windows和UOS的区别<br><br>可执行文件<br><br>Windows:<br>exe&nbsp;&nbsp;msi<br><br>UOS:<br>权限</div>
+        </div>
+        <div class="swiper-slide">
+          <div class="biaoti">网络安全<br><br>没<br>有<br>绝<br>对<br>的<br><div style="color: red;">安<br>全</div></div>
+        </div>
+        <div class="swiper-slide">
+          <div class="biaoti">常见问题<br><br><br><br><br><br></div><div style="font-size: 30px; color: black; text-align: center;">国产系统那点事golang</div>
+        </div>
+      </div>
+      <!-- 如果需要分页器 -->
+      <div class="swiper-pagination"></div>
+
+      <!-- 如果需要导航按钮 -->
+<!-- <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div> -->
+
+  <!-- 如果需要滚动条 -->
+  <!-- <div class="swiper-scrollbar"></div> -->
+</div>
+    <script src="../swiper7.0.5/swiper-bundle.min.js"></script>
+    <script type="text/javascript">
+      window.onload = function () {
+          var h = window.innerHeight; //获取当前窗口的高度; 
+          // var w = window.innerWidth;
+          document.getElementById("lb").style.height = h + "px"; //设置div的高度
+      }
+
+      const swiper = new Swiper('.swiper', {
+        // Optional parameters
+        direction: 'vertical',
+        keyboard: {
+          enabled: true,
+        },
+        loop: false,
+        // If we need pagination
+        pagination: {
+          el: '.swiper-pagination',
+          type: 'fraction',
+        },
+
+        // Navigation arrows
+        // navigation: {
+        //   nextEl: '.swiper-button-next',
+        //   prevEl: '.swiper-button-prev',
+        // },
+
+        // And if we need scrollbar
+        // scrollbar: {
+        //   el: '.swiper-scrollbar',
+        // },
+
+        });
+    </script>
+  </body>
+</html>

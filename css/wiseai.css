@@ -1,0 +1,9 @@
+/*独立CSS*/
+#wise-ai{margin-left: 20px; font-size: 30px; line-height: 50px;}
+.pad5{padding: 5px;}
+.layui-text-center{text-align: center;}
+.layui-img-fluid{max-width: 100%; height: auto;}
+.layui-hj30{line-height: 30px;}
+@font-face{font-family:zkwyt; src:url(../layui-v2.6.8/font/zkwyt.ttf);}
+.layui-font-zkwyt{font-family: zkwyt;}
+.mk{max-height: 600px; position: relative; width: 100%; overflow-x: hidden;}

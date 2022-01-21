@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8" />
+        <title>wiseai-Blog</title>
+        <link rel="stylesheet" href="./css/style.css" />
+        <link rel="stylesheet" href="./md/editor.md/css/editormd.preview.css" />
+        <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
+        <style>            
+            .editormd-html-preview {
+                width: 90%;
+                margin: 0 auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="layout">  
+            <div id="test-editormd-view">
+             <textarea style="display:none;" name="test-editormd-markdown-doc">###Hello world!</textarea>               
+            </div>
+        </div>
+
+        <!-- <script src="./js/zepto.min.js"></script>
+		<script>		
+			var jQuery = Zepto;  // 为了避免修改flowChart.js和sequence-diagram.js的源码，所以使用Zepto.js时想支持flowChart/sequenceDiagram就得加上这一句
+		</script> -->
+        <script src="./js/jquery.min.js"></script>
+        <script src="./md/editor.md/lib/marked.min.js"></script>
+        <script src="./md/editor.md/lib/prettify.min.js"></script>
+        
+        <script src="./md/editor.md/lib/raphael.min.js"></script>
+        <script src="./md/editor.md/lib/underscore.min.js"></script>
+        <script src="./md/editor.md/lib/sequence-diagram.min.js"></script>
+        <script src="./md/editor.md/lib/flowchart.min.js"></script>
+        <script src="./md/editor.md/lib/jquery.flowchart.min.js"></script>
+
+        <script src="./md/editor.md/editormd.js"></script>
+        <script type="text/javascript">
+            (function($)
+            {
+                $.extend(
+                {
+//        
+//          url get parameters
+//          public
+//         return array()
+//       
+                urlGet:function()
+                {
+                            var aQuery = window.location.href.split("?");//取得Get参数
+                            var aGET = new Array();
+                            if(aQuery.length > 1)
+                            {
+                                var aBuf = aQuery[1].split("&");
+                                for(var i=0, iLoop = aBuf.length; i<iLoop; i++)
+                                {
+                                    var aTmp = aBuf[i].split("=");//分离key与Value
+                                    aGET[aTmp[0]] = aTmp[1];
+                                }
+                            }
+                            return aGET;
+                        },
+                    });
+            })(jQuery);
+
+            $(function() {
+                var testEditormdView;
+                var getBlog;
+                // blog = decodeURIComponent($.urlGet().blog);  //汉字转码，不转也行
+                getBlog = "./blog/"+ $.urlGet().blog +".md";
+
+                $.get(getBlog, function(markdown) {
+                    
+				    testEditormdView = editormd.markdownToHTML("test-editormd-view", {
+                        markdown        : markdown ,//+ "\r\n" + $("#append-test").text(),
+                        //htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
+                        htmlDecode      : "style,script,iframe",  // you can filter tags decode
+                        //toc             : false,
+                        tocm            : true,    // Using [TOCM]
+                        //tocContainer    : "#custom-toc-container", // 自定义 ToC 容器层
+                        //gfm             : false,
+                        //tocDropdown     : true,
+                        // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
+                        emoji           : true,
+                        taskList        : true,
+                        tex             : true,  // 默认不解析
+                        flowChart       : true,  // 默认不解析
+                        sequenceDiagram : true,  // 默认不解析
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="../swiper7.0.5/swiper-bundle.min.css">    
+      <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <title>WISEAI-PPT</title>
+    <style type="text/css">
+        body, html {padding: 0px; margin: 0px; background: url(background.jpg) no-repeat;}
+       img {max-width: 100%; height: auto; display: block; vertical-align: middle;}
+       /*.swiper-wrapper{transition: 2s cubic-bezier(0.68, -0.4, 0.27, 1.34) 0.2s;}*/
+    </style>
+  </head>
+  <body>
+    <div class="swiper" id="lb">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="1.png"></div>
+        <div class="swiper-slide"><img src="2.png"></div>
+        <div class="swiper-slide"><img src="3.png"></div>
+        <div class="swiper-slide"><img src="4.png"></div>
+        <div class="swiper-slide"><img src="5.png"></div>
+        <div class="swiper-slide"><img src="6.png"></div>
+        <div class="swiper-slide"><img src="7.png"></div>
+      </div>
+      <!-- 如果需要分页器 -->
+      <!-- <div class="swiper-pagination"></div> -->
+
+      <!-- 如果需要导航按钮 -->
+      <!-- <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div> -->
+
+      <!-- 如果需要滚动条 -->
+      <!-- <div class="swiper-scrollbar"></div> -->
+</div>
+    <script src="../swiper7.0.5/swiper-bundle.min.js"></script>
+    <script type="text/javascript">
+      window.onload = function () {
+          var h = window.innerHeight; //获取当前窗口的高度; 
+          // var w = window.innerWidth;
+          document.getElementById("lb").style.height = h + "px"; //设置div的高度
+      }
+
+      const swiper = new Swiper('.swiper', {
+        // Optional parameters
+        direction: 'vertical',
+        loop: false,
+        // If we need pagination
+        // pagination: {
+        //   el: '.swiper-pagination',
+        // },
+
+        // Navigation arrows
+        // navigation: {
+        //   nextEl: '.swiper-button-next',
+        //   prevEl: '.swiper-button-prev',
+        // },
+
+        // And if we need scrollbar
+        // scrollbar: {
+        //   el: '.swiper-scrollbar',
+        // },
+        });
+    </script>
+  </body>
+</html>

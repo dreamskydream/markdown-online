@@ -1,0 +1,194 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>鱼缸尺寸计算</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
+<meta name="description" content="鱼缸尺寸计算" />
+
+<link rel="stylesheet" href="https://cdn.bootcss.com/pure/0.4.2/pure-min.css">
+
+<style>
+body, input, button, textarea {
+    font-family: "Lucida Grande", "Helvetica Neue", Helvetica, Arial, Verdana, "PingFang SC", "Hiragino Sans GB", STHeiti, "Microsoft YaHei", "WenQuanYi Micro Hei", "WenQuanYi Micro Hei Mono", "WenQuanYi Zen Hei", "WenQuanYi Zen Hei Mono", "Noto Sans CJK SC", "Source Han Sans CN", SimSun, sans-serif;
+}
+body {
+    padding: 10px;
+}
+
+a {
+    color: #3b8bba;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #265778;
+}
+
+#nav {
+    background: #222;
+}
+
+#nav.translucent {
+    background: none;
+}
+
+#nav a {
+    color: #ddd;
+    text-decoration: none;
+    padding: .5em;
+    display: inline-block;
+}
+
+#nav a:hover {
+    color: #eee;
+}
+
+#nav .c7sky-ribbon {
+    position: absolute;
+    right: 10px;
+    top: -3px;
+    background: url(http://mofun.c7sky.com/_global/ribbon.png) no-repeat 50% 0;
+    text-indent: -99em;
+    overflow: hidden;
+    width: 36px;
+    height: 56px;
+    padding: 0;
+    border-top: 3px solid #34BB98;
+    -webkit-transition: top .3s;
+    -moz-transition: top .3s;
+    transition: top .3s;
+}
+#nav .c7sky-ribbon:hover {
+    top: 0;
+}
+
+#header, #main {
+    margin: 0 auto;
+    max-width: 768px;
+}
+
+#header {
+    margin: 2em auto;
+    padding: 1em 0 2em;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    line-height: 1.5;
+}
+
+#header h1 {
+    margin: 0;
+    color: #444;
+    font-weight: 300;
+    font-size: 300%;
+}
+
+#header h2 {
+    margin: 0;
+    color: #666;
+    font-weight: 300;
+    font-size: 125%;
+}
+
+.adsbygoogle {
+    margin: 50px auto;
+    display: block!important;
+}
+#main {
+    max-width: 400px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid #eee;
+    list-style: none;
+    font-size: 14px;
+}
+
+li {
+    clear: both;
+    overflow: hidden;
+    padding: .5em 0;
+    border-bottom: 1px solid #eee;
+}
+
+.pure-form label {
+    display: block;
+    overflow: hidden;
+    margin: 0;
+}
+
+.pure-form span {
+    float: left;
+    margin: 6px 0;
+}
+
+input {
+    float: right;
+    margin-top: 9px;
+}
+
+#password_length,#password_quantity {
+    margin-top: 0;
+    width: 5em;
+}
+
+#generate {
+    margin: 1em 0;
+}
+
+.output {
+	font-family: Monaco, Menlo, Consolas, Inconsolata, 'Deja Vu Sans Mono', 'Droid Sans Mono', 'Lucida Console', 'Courier New', Courier, monospace;
+}
+
+</style>
+</head>
+<body>
+<div id="header">
+    <h1>鱼缸尺寸计算</h1>
+    <h2></h2>
+</div>
+
+<div id="main" class="pure-form">
+	<ul>
+		<li><label><span>长:</span><input type="number" id="chang" min="0" value="30" /></label></li>
+		<li><label><span>宽:</span><input type="number" id="kuan" min="0" value="30" /></label></li>
+        <li><label><span>高:</span><input type="number" id="gao" min="0" value="30" /></label></li>
+        <li><label><span>厚:</span><input type="number" id="hou" min="0" value="0.3" /></label></li>
+	</ul>
+	<button id="generate" class="pure-button pure-button-primary pure-input-1">开始计算</button>
+	<!-- <textarea id="output_d" class="output pure-input-1" cols="40" rows="1" readonly></textarea>
+    <textarea id="output_qh" class="output pure-input-1" cols="40" rows="1" readonly></textarea>
+    <textarea id="output_c" class="output pure-input-1" cols="40" rows="1" readonly></textarea>
+    <textarea id="output_gd" class="output pure-input-1" cols="40" rows="1" readonly></textarea> -->
+    <div id="output_d"></div>
+    <div id="output_qh"></div>
+    <div id="output_c"></div>
+    <div id="output_gd"></div>
+</div>
+
+<script>
+var $ = function(s){return document.getElementById(s)},
+	$chang = $("chang"),
+	$kuan = $("kuan"),
+	$gao = $("gao"),
+    $hou = $("hou"),
+	$generate = $("generate"),
+	$output_d = $("output_d"),
+    $output_qh = $("output_qh"),
+    $output_c = $("output_c"),
+    $output_gd = $("output_gd");
+
+$generate.onclick = function () { 
+    $output_d.innerHTML = "底面玻璃长宽: " + ($chang.value - 2 * $hou.value)+ " * " + ($kuan.value - 2 * $hou.value);
+    $output_qh.innerHTML = "前后玻璃长宽: " + $chang.value + " * " + $gao.value;
+    $output_c.innerHTML = "侧面玻璃长宽: " + ($kuan.value - 2 * $hou.value) + " * " + $gao.value;
+    $output_gd.innerHTML = "隔断玻璃长宽: " + ($kuan.value - 2 * $hou.value) + " * " + ($gao.value - $hou.value);
+};
+
+</script>
+</body>
+</html>
