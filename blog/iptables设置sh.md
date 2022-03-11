@@ -96,7 +96,7 @@ DROP ：该封包直接丢弃，不会让client 端知道为何被丢弃。
 ```
 -m：一些iptables的外挂模块，主要常见的有：  
           state：状态模块  
-          mac：网络卡硬件位址（hardware address）  
+          mac：网络卡硬件地址（hardware address）  
 --state：一些封包的状态，主要有：  
          INVALID：无效的封包，例如数据破损的封包状态  
         ESTABLISHED：已经联机成功的联机状态；  
@@ -106,7 +106,7 @@ DROP ：该封包直接丢弃，不会让client 端知道为何被丢弃。
 例：只要已建立或相关封包就予以通过，只要是不合法封包就丢弃    
 `# iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT  `
 `# iptables -A INPUT -m state --state INVALID -j DROP`
-对MAC地址为aa:bb:cc:dd:ee:ff主机开放其连线 
+对MAC地址为aa:bb:cc:dd:ee:ff主机开放其连接
 `# iptables -A INPUT -m mac --mac-source aa:bb:cc:dd :ee:ff -j ACCEPT `
 选项与参数： 
 ```
@@ -114,7 +114,7 @@ DROP ：该封包直接丢弃，不会让client 端知道为何被丢弃。
 ```
 **ICMP 封包规则：针对是否回应ping 来设计**
 
-通常我们会把ICMP type 8 (echo request)拿掉而已，让远端主机不知道我们是否存在，也不会接受ping的回应。
+通常我们会把ICMP type 8 (echo request)去掉而已，让远端主机不知道我们是否存在，也不会接受ping的回应。
 `# iptables -A INPUT [-p icmp] [--icmp-type类型] -j ACCEPT `
 选项与参数：
 ```
