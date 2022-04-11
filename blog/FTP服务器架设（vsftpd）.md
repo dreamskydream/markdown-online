@@ -49,7 +49,7 @@ PAM 模块的抵挡设定项目,那么这个 /etc/vsftpd/user_list 则是 vsftpd
 这个是 vsftpd 的预设匿名者登入的根目录，其实与 ftp 这个账号的家目录有关。
 
 !!服务器环境设定
---
+```
 ### 使用本地时间
 
 use_localtime=yes
@@ -175,32 +175,29 @@ ssl_sslv3=NO
 ### 预设 RSA 加密的凭证档案所在
 
 rsa_cert_file=/etc/vsftpd/vsftpd.pem
-
+```
 
 
 网上一个详细的教程，值得参考
 ==
 
-一、安装vsftpd及相关组件：
+### 一、安装vsftpd及相关组件：
 yum -y install vsftpd* pam* db4*
 
-二、修改FTP相关帐户：
+### 二、修改FTP相关帐户：
 
-1、vsftpd服务的宿主用户
-useradd vsftpd -s /sbin/nologin
+1. vsftpd服务的宿主用户
+`# useradd vsftpd -s /sbin/nologin`
 默认的vsftpd的服务宿主用户是root，但是这不符合安全性的需要。这里建立名字为vsftpd的用户，用他来作为支持vsftpd的服务宿主用户。由于该用户仅用来支持vsftpd服务用，因此没有许可他登陆系统的必要，并设定他为不能登陆系统的用户。
 
-2、vsftpd的虚拟宿主用户
-
-useradd virtual -d /var/www/html/ -s /sbin/nologin
-chown -R virtual:virtual /var/www/html/
-
+1. vsftpd的虚拟宿主用户
+`# useradd virtual -d /var/www/html/ -s /sbin/nologin`
+`# chown -R virtual:virtual /var/www/html/`
 vsftpd的虚拟用户并不是系统用户，也就是说这些FTP的用户在系统中是不存在的。他们的总体权限其实是集中寄托在一个在系统中的某一个用户身上的，所谓vsftpd的虚拟宿主用户，就是这样一个支持着所有虚拟用户的宿主用户。由于他支撑了FTP的所有虚拟的用户，那么他本身的权限将会影响着这些虚拟的用户，因此，处于安全性的考虑，也要非分注意对该用户的权限的控制，该用户也绝对没有登陆系统的必要，这里也设定他为不能登陆系统的用户。
 
 三、vsftpd.conf基本配置：
 vim /etc/vsftpd/vsftpd.conf
-
-
+```
 # Example config file /etc/vsftpd/vsftpd.conf
 #
 # The default compiled in settings are fairly paranoid. This sample file
@@ -329,16 +326,14 @@ chroot_local_user=YES
 guest_enable=YES
 guest_username=virtual
 
- 
-
 virtual_use_local_privs=YES
 #reverse_lookup_enable=NO
 user_config_dir=/etc/vsftpd/vsftpd_user_conf
+```
+### 四、生成vsftpd虚拟用户数据库文件：
 
-四、生成vsftpd虚拟用户数据库文件：
-
-1、建立虚拟用户名单文件：
-vim /etc/vsftpd/ftpuser.txt
+1. 建立虚拟用户名单文件：
+`# vim /etc/vsftpd/ftpuser.txt`
 内容如下：
 ftp1
 1234
@@ -346,46 +341,41 @@ ftp2
 5678
 格式很简单：“一行用户名，一行密码！”。
 
-2、生成虚拟用户数据文件：
+1. 生成虚拟用户数据文件：
+`# db_load -T -t hash -f /etc/vsftpd/ftpuser.txt /etc/vsftpd/vsftpd_login.db`
+`# chmod 600 /etc/vsftpd/vsftpd_login.db`
 
-db_load -T -t hash -f /etc/vsftpd/ftpuser.txt /etc/vsftpd/vsftpd_login.db
-chmod 600 /etc/vsftpd/vsftpd_login.db
-
-五、配置PAM验证文件：
-vim /etc/pam.d/vsftpd.vu
-
+### 五、配置PAM验证文件：
+`# vim /etc/pam.d/vsftpd.vu`
 将以下内容加入到文件最前面（在后面加入无效）：
 32位系统：
 
-auth required /lib/security/pam_userdb.so db=/etc/vsftpd/vsftpd_login
-account required /lib/security/pam_userdb.so db=/etc/vsftpd/vsftpd_login
-
+	auth required /lib/security/pam_userdb.so db=/etc/vsftpd/vsftpd_login
+	account required /lib/security/pam_userdb.so db=/etc/vsftpd/vsftpd_login
 64位系统：
 
-auth required /lib64/security/pam_userdb.so db=/etc/vsftpd/vsftpd_login
-account required /lib64/security/pam_userdb.so db=/etc/vsftpd/vsftpd_login
-
+	auth required /lib64/security/pam_userdb.so db=/etc/vsftpd/vsftpd_login
+	account required /lib64/security/pam_userdb.so db=/etc/vsftpd/vsftpd_login	
 上一步建立的数据库 vsftpd_login 在此处被使用，建立的虚拟用户将采用PAM进行验证，这是通过/etc/vsftpd/vsftpd.conf文件中的语句pam_service_name=vsftpd.vu来启用的。
 
-六、vsftpd虚拟用户的独立配置：
-
-mkdir -p /etc/vsftpd/vsftpd_user_conf
-vim /etc/vsftpd/vsftpd_user_conf/jtxm
+### 六、vsftpd虚拟用户的独立配置：
+`# mkdir -p /etc/vsftpd/vsftpd_user_conf`
+`# vim /etc/vsftpd/vsftpd_user_conf/jtxm`
 
 配置如下：
 
-anon_world_readable_only=NO
-write_enable=YES
-anon_upload_enable=YES
-anon_mkdir_write_enable=YES
-anon_other_write_enable=YES
-local_root=/var/www/html/jtxm
+	anon_world_readable_only=NO
+	write_enable=YES
+	anon_upload_enable=YES
+	anon_mkdir_write_enable=YES
+	anon_other_write_enable=YES
+	local_root=/var/www/html/jtxm
 
-七、vsftpd服务器之间的站点对传：
+### 七、vsftpd服务器之间的站点对传：
 有时候可能需要开启vsftpd服务器之间的站点对传功能，只需在主配置文件 /etc/vsftpd/vsftpd.conf 里加入如下参数即可：
 
-pasv_promiscuous=YES
-port_promiscuous=YES
+	pasv_promiscuous=YES
+	port_promiscuous=YES
 
 说明：
 port_promiscuous=YES|NO
@@ -395,7 +385,7 @@ pasv_promiscuous=YES|NO
 默认值为NO。为YES时，将关闭PASV模式的安全检查。该检查确保数据连接和控制连接是来自同一个IP地址。小心打开此选项。此选项唯一合理的用法是存在于由安全隧道方案构成的组织中。
 由于取消了数据包的安全检查，允许数据流向非客户端，所以站点对传成功。
 
-配置修改完成后，重启vsftpd服务生效：
+### 配置修改完成后，重启vsftpd服务生效：
 /etc/init.d/vsftpd restart
 
 总结：以上配置是经过我多次验证的，如果出现问题，请从以下几方面检查：
