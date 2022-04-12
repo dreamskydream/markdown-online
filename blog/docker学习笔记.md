@@ -92,14 +92,18 @@ Docker 的配置文件可以设置大部分的后台进程参数，在各个操�
 - kill容器：docker kill 容器名
 - 删除容器：docker rm 容器名
 - 查看容器信息：docker inspect 容器名
+- 查看容器log：docker logs 容器名
 - 利用已有容器修改或建立新的镜像：docker commit -m "说明信息" -a "用户信息" 容器名 centos7/nginx-php:v2
 - 镜像存出：docker save -o ubuntu_14.04.tar ubuntu:14.04或docker save > ubuntu_14.04.tar ubuntu:14.04
 - 镜像载入：docker load -i ubuntu_14.04.tar或docker load < ubuntu_14.04.tar
 - 容器导出：docker export ubuntu > ubuntu.tar
 - 容器导入：docker import ubuntu.tar test/ubuntu
-注意：容器导入后就成镜像了
+注意：
+    容器导入后就成镜像了，如果容器有运行的命令，在run的时候也一定要加上命令，否则不能成功创建。
+    镜像就不存在这个问题
 - 从主机复制到容器：docker cp host_path containerID:container_path
 - 从容器复制到主机：docker cp containerID:container_path host_path
+- 最后添加"运行命令"的shell里，如果没有驻留服务的话，一定要在最后一行写bash，否则无法启动。
 
 ## docker网络设置：
 
