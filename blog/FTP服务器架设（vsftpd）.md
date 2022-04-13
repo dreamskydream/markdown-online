@@ -301,7 +301,7 @@ vsftpd_user_conf这个是目录下面是各个用户的配置文件
 ### 配置修改完成后，重启vsftpd服务生效：
 #结束
 
-[![vsftpd配置](vsftpd配置 "vsftpd配置")](blog/vsftpd.png "vsftpd配置")
+[![vsftpd配置](vsftpd配置 "vsftpd配置")](https://md.wiseai.cn/blog/vsftpd.png "vsftpd配置")
 vsftpd配置文件详解
 
 1.默认配置：
