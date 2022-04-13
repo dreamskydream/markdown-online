@@ -255,7 +255,13 @@ auth    required        /usr/lib/aarch64-linux-gnu/security/pam_userdb.so db=/et
 account required        /usr/lib/aarch64-linux-gnu/security/pam_userdb.so db=/etc/vsftpd/vsftpd_login
 auth    required        pam_listfile.so item=user sense=deny file=/etc/vsftpd/ftpusers onerr=succeed
 ```
-ftpusers的原位置在/etc/下，移动ftpusers到/etc/vsftpd/下，并在ftpusers中添加virtual用户
+经过测试，这样写也行：
+```
+auth    required        pam_userdb.so db=/etc/vsftpd/vsftpd_login
+account required        pam_userdb.so db=/etc/vsftpd/vsftpd_login
+auth    required        pam_listfile.so item=user sense=deny file=/etc/vsftpd/ftpusers onerr=succeed
+```
+ftpusers的原位置在/etc/下，移动ftpusers到/etc/vsftpd/下，这个文件中的用户是不能登陆ftp的。
 上一步建立的数据库 vsftpd_login 在此处被使用，建立的虚拟用户将采用PAM进行验证，这是通过/etc/vsftpd/vsftpd.conf文件中的语句pam_service_name=vsftpd来启用的。
 
 ### 六、vsftpd虚拟用户的独立配置：
@@ -295,7 +301,7 @@ vsftpd_user_conf这个是目录下面是各个用户的配置文件
 ### 配置修改完成后，重启vsftpd服务生效：
 #结束
 
-[![vsftpd配置](vsftpd配置 "vsftpd配置")](/blog/vsftpd.png "vsftpd配置")
+[![vsftpd配置](vsftpd配置 "vsftpd配置")](blog/vsftpd.png "vsftpd配置")
 vsftpd配置文件详解
 
 1.默认配置：
