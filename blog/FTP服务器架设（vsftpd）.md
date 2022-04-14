@@ -187,11 +187,12 @@ rsa_cert_file=/etc/vsftpd/vsftpd.pem
 1. vsftpd服务的宿主用户
 `# useradd vsftpd -s /sbin/nologin`
 默认的vsftpd的服务宿主用户是root，但是这不符合安全性的需要。这里建立名字为vsftpd的用户，用他来作为支持vsftpd的服务宿主用户。由于该用户仅用来支持vsftpd服务用，因此没有许可他登陆系统的必要，并设定他为不能登陆系统的用户。
+这一步现在可能不需要了，先放着。
 
 1. vsftpd的虚拟宿主用户
-`# useradd virtual -d /var/www/html/ -s /sbin/nologin`
-`# chown -R virtual:virtual /var/www/html/`
-vsftpd的虚拟用户并不是系统用户，也就是说这些FTP的用户在系统中是不存在的。他们的总体权限其实是集中寄托在一个在系统中的某一个用户身上的，所谓vsftpd的虚拟宿主用户，就是这样一个支持着所有虚拟用户的宿主用户。由于他支撑了FTP的所有虚拟的用户，那么他本身的权限将会影响着这些虚拟的用户，因此，处于安全性的考虑，也要非分注意对该用户的权限的控制，该用户也绝对没有登陆系统的必要，这里也设定他为不能登陆系统的用户。
+`# useradd ftp -d /var/www/html/ -s /sbin/nologin`
+`# chown -R ftp:ftp /var/www/html/`
+vsftpd的虚拟用户并不是系统用户，也就是说这些FTP的用户在系统中是不存在的。他们的总体权限其实是集中寄托在一个在系统中的某一个用户身上的，所谓vsftpd的虚拟宿主用户，就是这样一个支持着所有虚拟用户的宿主用户。由于他支撑了FTP的所有虚拟的用户，那么他本身的权限将会影响着这些虚拟的用户，因此，处于安全性的考虑，也要非分注意对该用户的权限的控制，该用户也绝对没有登陆系统的必要，这里也设定他为不能登陆系统的用户。ftp用户在安装vsftpd的时候就已经添加了，我们只需要将它
 
 三、vsftpd.conf基本配置：
 配置 /etc/vsftpd/vsftpd.conf文件，这里我们只写有变动的地方，其它的保持默认。
@@ -222,7 +223,7 @@ chroot_list_file=/etc/vsftpd/chroot_list
 
 #虚拟用户
 guest_enable=YES
-guest_username=virtual
+guest_username=ftp
 virtual_use_local_privs=YES
 pam_service_name=vsftpd
 
