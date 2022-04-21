@@ -1,4 +1,4 @@
-grub2相关配置文件及命令
+efi和grub2相关配置文件及命令
 ==
 
 ### 一、配置文件目录
@@ -53,5 +53,21 @@ grub命名规则，(hd32)为第一仿真cd/dvd设备，等同于0xa0，(hd33)为
 `map --mem` 用于仿真不连续的存放的iso文件，不加则必须连续存放，碎片整理后再存放iso一般才会连续。
 另外grub不支持大的iso，如果iso不支持则提示:inviladorupsupported executableformat。
 
-### 六、需要注意的地方
+### 六、添加efi启动项
+在安装程序不完善的时候，有时候会存在没有启动项的问题，这个时候就要用efibootmgr管理UEFI启动项。
+`# efibootmgr`
+这个命令会显示所有已经添加的启动项，BootOrder后会显示启动顺序。
+`# efibootmgr -c -w -L "BootOptionName" -d /dev/sda -p 1 -l \\EFI\\UOS\\grubx64.efi`
+	BootOptionName是你启动项的名字，修改为自己的
+	-d修改那个硬盘
+	-p分区位置，默认为1
+	-l是启动efi文件的路径，注意是\\而不是//
+这样就添加了EFI启动项，刚添加的启动项的顺序排第一个
+`# efibootmgr -b 0013 -B`
+删除编号为0013的启动项
+`# efibootmgr -o 0012,0010,000f`
+修改启动顺序。
+这个命令没有认真研究，有空再说吧。
+
+### 七、需要注意的地方
 	grub背景图片的问题，最近用gimp做了个图片设为grub2启动背景图片，grub2提示错误，最后发现是图片的问题。
