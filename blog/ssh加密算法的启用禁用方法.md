@@ -1,7 +1,11 @@
 ssh加密算法的启用禁用方法
 ==
 * “手机ES文件浏览器”不能连接sftp的问题解决方法
-首先，说说为什么学习这个东西，在使用“手机ES文件浏览器”这个软件的时候，出现了不能连接的情况，在网上查询后发现是KexAlgorithms 密钥交换算法的问题，在/etc/ssh/sshd_config后添加`KexAlgorithms +diffie-hellman-group14-sha1`后问题解决。
+首先，说说为什么学习这个东西，在使用“手机ES文件浏览器”这个软件的时候，出现了不能连接的情况，在网上查询后发现是KexAlgorithms 密钥交换算法的问题，在/etc/ssh/sshd_config后添加:
+`KexAlgorithms +diffie-hellman-group14-sha1`
+后问题解决。
+* 出现no matching host key type found.Their offer: ssh-rsa,ssh-dss这个问题时,在/etc/ssh/sshd_config后添加：
+`HostKeyAlgorithms ssh-rsa`
 
 配置位置：/etc/ssh/sshd_config
 --
